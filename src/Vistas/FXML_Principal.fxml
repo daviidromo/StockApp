@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.FXML_PrincipalController">
+   <children>
+      <TableView fx:id="tabla_productos" layoutX="301.0" layoutY="200.0" prefHeight="544.0" prefWidth="964.0">
+        <columns>
+          <TableColumn fx:id="tabla_id" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="tabla_nombre" prefWidth="361.60003662109375" text="NOMBRE" />
+            <TableColumn fx:id="tabla_cantidad" prefWidth="102.39996337890625" text="CANTIDAD" />
+            <TableColumn fx:id="tabla_unidad" prefWidth="146.4000244140625" text="UNIDAD" />
+            <TableColumn fx:id="tabla_precio" prefWidth="105.5999755859375" text="PRECIO" />
+            <TableColumn fx:id="tabla_cantidadMinima" prefWidth="172.7999267578125" text="CANTIDAD MINIMA" />
+        </columns>
+      </TableView>
+      <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="1920.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Productos">
+            <items>
+              <MenuItem fx:id="principal_añadirProducto" mnemonicParsing="false" text="Añadir Producto" />
+                  <MenuItem fx:id="principal_eliminarProducto" mnemonicParsing="false" text="Eliminar Producto" />
+                  <MenuItem fx:id="principal_editarProducto" mnemonicParsing="false" text="Editar Producto" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Text layoutX="624.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BUSCAR PRODUCTO" />
+      <TextField fx:id="principal_buscar" layoutX="793.0" layoutY="80.0" />
+   </children>
+</AnchorPane>
