@@ -41,6 +41,9 @@ public class FXML_LoginController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    
+    //BOTON CREADO
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
