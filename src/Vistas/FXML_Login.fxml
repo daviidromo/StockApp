@@ -14,6 +14,5 @@
       <TextField fx:id="log_contraseña" layoutX="260.0" layoutY="222.0" />
       <Button fx:id="log_boton_cancelar" layoutX="163.0" layoutY="328.0" mnemonicParsing="false" onAction="#log_boton_cancelar" text="CANCELAR" />
       <Button fx:id="log_boton_aceptar" layoutX="350.0" layoutY="328.0" mnemonicParsing="false" onAction="#log_boton_aceptar" text="ACEPTAR" />
-      <Text layoutX="116.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="sssss" />
    </children>
 </AnchorPane>
