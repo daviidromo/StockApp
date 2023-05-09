@@ -42,7 +42,6 @@ public class FXML_LoginController implements Initializable {
      * Initializes the controller class.
      */
     
-    //OOOO
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
