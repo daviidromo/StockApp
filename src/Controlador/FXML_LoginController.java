@@ -42,7 +42,6 @@ public class FXML_LoginController implements Initializable {
      * Initializes the controller class.
      */
     
-    //BOTON CREADO
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -54,7 +53,7 @@ public class FXML_LoginController implements Initializable {
           MetodosVarios.cerrarVentanas(event);
 
     }
-
+/*HOLAAA*/
     @FXML
     private void log_boton_aceptar(ActionEvent event) {
        
