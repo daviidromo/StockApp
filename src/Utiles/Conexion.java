@@ -35,7 +35,7 @@ public class Conexion {
 
         //Conexion
         conexion = DriverManager.getConnection(cadenaConexion, usuaio, password);
-        System.out.println("Conexion establecida");
+        //System.out.println("Conexion establecida");
 
         conexion.setAutoCommit(true);
 

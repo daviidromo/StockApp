@@ -7,6 +7,7 @@ package Controlador;
 
 import Modelo.Productos;
 import Utiles.Conexion;
+import Utiles.MetodosVarios;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,13 +16,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -30,12 +35,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class FXML_PrincipalController implements Initializable {
 
-    @FXML
-    private MenuItem principal_añadirProducto;
-    @FXML
-    private MenuItem principal_eliminarProducto;
-    @FXML
-    private MenuItem principal_editarProducto;
     @FXML
     private TextField principal_buscar;
     @FXML
@@ -56,6 +55,28 @@ public class FXML_PrincipalController implements Initializable {
     ObservableList<Productos> lista_Producto = FXCollections.observableArrayList();
     @FXML
     private TableView<Productos> tabla_productos;
+    @FXML
+    private Button prin_añadirProducto_boton;
+    @FXML
+    private Button prin_eliminarProducto_boton;
+    @FXML
+    private TextField prin_id_GastoProducto;
+    @FXML
+    private TextField prin_CantMinima_GastoProducto;
+    @FXML
+    private TextField prin_precio_GastoProducto;
+    @FXML
+    private TextField prin_unidad_GastoProducto;
+    @FXML
+    private TextField prin_cantidad_GastoProducto;
+    @FXML
+    private TextField prin_nombre_GastoProducto;
+    @FXML
+    private Button prin_aceptar_GastoProducto;
+    @FXML
+    private Button prin_cancelar_GastoProducto;
+    @FXML
+    private Button prin_editarProducto_boton;
 
     /**
      * Initializes the controller class.
@@ -64,8 +85,8 @@ public class FXML_PrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         prepararTabla();
         cargarTabla();
-    }    
-    
+    }
+
     public void prepararTabla() {
 
         tabla_id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -75,7 +96,7 @@ public class FXML_PrincipalController implements Initializable {
         tabla_precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
         tabla_cantidadMinima.setCellValueFactory(new PropertyValueFactory<>("cantidadMinima"));
     }
-    
+
     public void cargarTabla() {
 
         try {
@@ -88,11 +109,10 @@ public class FXML_PrincipalController implements Initializable {
             while (rs.next()) {
                 int id = rs.getInt("pro_id");
                 String nombre = rs.getString("pro_nombre");
-                int cantidad = rs.getInt("pro_cantidad");
+                double cantidad = rs.getDouble("pro_cantidad");
                 String unidad = rs.getString("pro_unidad");
                 double precio = rs.getDouble("pro_precio");
                 double cantidadMinima = rs.getDouble("pro_cantidadMinima");
-
 
                 Productos producto = new Productos(id, nombre, cantidad, unidad, precio, cantidadMinima);
                 lista_Producto.add(producto);
@@ -106,5 +126,94 @@ public class FXML_PrincipalController implements Initializable {
 
         tabla_productos.setItems(lista_Producto);
 
+    }
+
+    @FXML
+    private void prin_añadirProducto(ActionEvent event) {
+    }
+
+    @FXML
+    private void prin_borrarProducto(ActionEvent event) {
+    }
+
+    @FXML
+    private void prin_editarProducto(ActionEvent event) {
+    }
+
+    @FXML
+    private void prin_gastos(MouseEvent event) {
+        // Obtengo el producto seleccionado
+        Productos a = (Productos) this.tabla_productos.getSelectionModel().getSelectedItem();
+        // Si es nulo, muestro error
+        if (a == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("Debes seleccionar un producto");
+            alert.showAndWait();
+        } else {
+            try {
+                prin_id_GastoProducto.setText(a.getId() + "");
+                prin_nombre_GastoProducto.setText(a.getNombre());
+                prin_unidad_GastoProducto.setText(a.getUnidad());
+                prin_precio_GastoProducto.setText(a.getPrecio() + "");
+                prin_CantMinima_GastoProducto.setText(a.getCantidadMinima() + "");
+            } catch (Exception ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setTitle("Error");
+                alert.setContentText(ex.getMessage());
+                alert.showAndWait();
+            }
+        }
+
+    }
+
+    @FXML
+    private void prin_aceptarGasto(ActionEvent event) throws SQLException {
+        // Obtengo el producto seleccionado
+        Productos a = (Productos) this.tabla_productos.getSelectionModel().getSelectedItem();
+        String cantidadRestarStr = prin_cantidad_GastoProducto.getText();
+
+        if (a == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("Debes seleccionar un producto");
+            alert.showAndWait();
+        } else if (cantidadRestarStr.equals("")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("Debes poner una cantidad");
+            alert.showAndWait();
+        } else {
+            double cantidadInicial = a.getCantidad();
+            double cantidadRestar = Double.parseDouble(cantidadRestarStr);
+            double cantidadFinal = 0;
+            if (cantidadRestar > cantidadInicial) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setTitle("Error");
+                alert.setContentText("Debes poner menos cantidad de la que tienes");
+                alert.showAndWait();
+            } else {
+                cantidadFinal = cantidadInicial - cantidadRestar;
+                MetodosVarios m = new MetodosVarios();
+                int id = Integer.parseInt(prin_id_GastoProducto.getText());
+                m.actualizar(cantidadFinal, id);
+                cargarTabla();
+                m.cancelar(prin_id_GastoProducto, prin_nombre_GastoProducto, prin_cantidad_GastoProducto, prin_unidad_GastoProducto, prin_precio_GastoProducto, prin_CantMinima_GastoProducto);
+
+            }
+        }
+
+    }
+
+    @FXML
+    private void prin_cancelarGastos(ActionEvent event) {
+        cargarTabla();
+        MetodosVarios m = new MetodosVarios();
+        m.cancelar(prin_id_GastoProducto, prin_nombre_GastoProducto, prin_cantidad_GastoProducto, prin_unidad_GastoProducto, prin_precio_GastoProducto, prin_CantMinima_GastoProducto);
     }
 }

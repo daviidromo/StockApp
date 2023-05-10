@@ -5,9 +5,12 @@
  */
 package Utiles;
 
+import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javax.swing.JTextField;
 
 /**
  *
@@ -21,6 +24,34 @@ public class MetodosVarios {
         stage.close();
     }
     
+    public void cancelar(TextField id, TextField nombre, TextField cantidad, TextField unidad, TextField precio, TextField cantMin){
+        id.setText("");
+        nombre.setText("");
+        cantidad.setText("");
+        unidad.setText("");
+        precio.setText("");
+        cantMin.setText("");
+    }
+    public boolean actualizar(double cantidad, int id) throws SQLException{
+        Conexion conexion = new Conexion();
+
+        // Formo el SQL
+        String SQL = "";
+        SQL += "UPDATE productos SET ";
+        SQL += "pro_cantidad=" + cantidad + "";
+        SQL += " WHERE pro_id = '" + id + "'";
+
+        // Recupero las filas
+        int filas = conexion.ejecutarInstruccion(SQL);
+        /*libros1(event);
+            libros2(event);
+            libros3(event);*/
+        conexion.cerrarConexion();
+
+        return filas > 0;
+    }
+
+   
     
     
 }

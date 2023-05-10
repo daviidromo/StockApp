@@ -15,13 +15,13 @@ public class Productos {
 
    private int id;
    private String nombre;
-   private int cantidad;
+   private double cantidad;
    private String unidad;
    private double precio;
    private double cantidadMinima;
    Conexion conexion;
 
-    public Productos(int id, String nombre, int cantidad, String unidad, double precio, double cantidadMinima) {
+    public Productos(int id, String nombre, double cantidad, String unidad, double precio, double cantidadMinima) {
         this.id = id;
         this.nombre = nombre;
         this.cantidad = cantidad;
@@ -46,11 +46,11 @@ public class Productos {
         this.nombre = nombre;
     }
 
-    public int getCantidad() {
+    public double getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
 
