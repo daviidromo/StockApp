@@ -23,27 +23,27 @@
       </TableView>
       <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="1920.0" />
       <Text layoutX="50.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BUSCAR PRODUCTO" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="113.05078125" />
-      <TextField fx:id="principal_buscar" layoutX="190.0" layoutY="108.0" AnchorPane.leftAnchor="190.0" AnchorPane.topAnchor="108.0" />
+      <TextField fx:id="principal_buscar" layoutX="196.0" layoutY="108.0" AnchorPane.leftAnchor="196.0" AnchorPane.topAnchor="108.0" />
       <Button fx:id="añadirProducto_boton" layoutX="236.0" layoutY="923.0" mnemonicParsing="false" text="Añadir Producto" />
       <Button fx:id="eliminarProducto_boton" layoutX="669.0" layoutY="923.0" mnemonicParsing="false" text="Eliminar Producto" />
       <AnchorPane layoutX="1167.0" layoutY="200.0" prefHeight="700.0" prefWidth="681.0" style="-fx-border-color: black; -fx-border-width: 2px;">
          <children>
             <Text layoutX="299.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Editar Producto" />
-            <Text layoutX="58.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
-            <Text layoutX="58.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE" />
-            <Text layoutX="58.0" layoutY="457.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRECIO" />
-            <Text layoutX="58.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CANTIDAD" />
-            <Text layoutX="58.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNIDAD" />
-            <Text layoutX="58.0" layoutY="553.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CANTIDAD MINIMA" />
-            <TextField fx:id="id_editarProducto" editable="false" layoutX="179.0" layoutY="98.0" />
-            <TextField fx:id="cantidadMinima_editarProducto" layoutX="179.0" layoutY="535.0" />
-            <TextField fx:id="precio_editarProducto" layoutX="179.0" layoutY="439.0" />
-            <TextField fx:id="unidad_editarProducto" layoutX="179.0" layoutY="335.0" />
-            <TextField fx:id="cantidad_editarProducto" layoutX="179.0" layoutY="242.0" />
-            <TextField fx:id="nombre_editarProducto" layoutX="179.0" layoutY="168.0" />
-            <Button fx:id="aceptar_editarProducto" layoutX="478.0" layoutY="234.0" mnemonicParsing="false" text="Aceptar " />
-            <Button fx:id="restaurar_editarProducto" layoutX="478.0" layoutY="335.0" mnemonicParsing="false" text="Restaurar" />
-            <Button fx:id="cancelar_editarProducto" layoutX="478.0" layoutY="439.0" mnemonicParsing="false" text="Cancelar" />
+            <Text layoutX="56.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
+            <Text layoutX="56.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE" />
+            <Text layoutX="56.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRECIO" />
+            <Text layoutX="56.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CANTIDAD" />
+            <Text layoutX="56.0" layoutY="368.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNIDAD" />
+            <Text layoutX="56.0" layoutY="568.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CANTIDAD MINIMA" />
+            <TextField fx:id="id_editarProducto" editable="false" layoutX="201.0" layoutY="108.0" />
+            <TextField fx:id="cantidadMinima_editarProducto" layoutX="201.0" layoutY="545.0" />
+            <TextField fx:id="precio_editarProducto" layoutX="201.0" layoutY="449.0" />
+            <TextField fx:id="unidad_editarProducto" layoutX="201.0" layoutY="345.0" />
+            <TextField fx:id="cantidad_editarProducto" layoutX="201.0" layoutY="252.0" />
+            <TextField fx:id="nombre_editarProducto" layoutX="201.0" layoutY="178.0" />
+            <Button fx:id="aceptar_editarProducto" layoutX="476.0" layoutY="249.0" mnemonicParsing="false" text="Aceptar " />
+            <Button fx:id="restaurar_editarProducto" layoutX="476.0" layoutY="350.0" mnemonicParsing="false" text="Restaurar" />
+            <Button fx:id="cancelar_editarProducto" layoutX="476.0" layoutY="454.0" mnemonicParsing="false" text="Cancelar" />
          </children>
          <opaqueInsets>
             <Insets />
