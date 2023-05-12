@@ -5,10 +5,15 @@
  */
 package Utiles;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.JTextField;
 
@@ -17,14 +22,14 @@ import javax.swing.JTextField;
  * @author sergi
  */
 public class MetodosVarios {
-    
+
     public static void cerrarVentanas(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
-    
-    public void cancelar(TextField id, TextField nombre, TextField cantidad, TextField unidad, TextField precio, TextField cantMin){
+
+    public void cancelar(TextField id, TextField nombre, TextField cantidad, TextField unidad, TextField precio, TextField cantMin) {
         id.setText("");
         nombre.setText("");
         cantidad.setText("");
@@ -32,7 +37,8 @@ public class MetodosVarios {
         precio.setText("");
         cantMin.setText("");
     }
-    public boolean actualizar(double cantidad, int id) throws SQLException{
+
+    public boolean actualizar(double cantidad, int id) throws SQLException {
         Conexion conexion = new Conexion();
 
         // Formo el SQL
@@ -51,7 +57,5 @@ public class MetodosVarios {
         return filas > 0;
     }
 
-   
-    
-    
+
 }

@@ -6,6 +6,7 @@
 package Controlador;
 
 import Modelo.Productos;
+import Utiles.MetodosVarios;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -50,6 +51,7 @@ public class FXML_AñadirProductoController implements Initializable {
 
     @FXML
     private void aceptar_añadirProducto(ActionEvent event) {
+        
     }
 
     @FXML
@@ -58,7 +60,9 @@ public class FXML_AñadirProductoController implements Initializable {
 
     @FXML
     private void cancelar_añadirProducto(ActionEvent event) {
+        MetodosVarios.cerrarVentanas(event);
     }
+
     
     
  

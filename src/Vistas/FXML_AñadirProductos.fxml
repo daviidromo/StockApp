@@ -21,9 +21,9 @@
       <TextField fx:id="unidad_añadirProducto" layoutX="201.0" layoutY="345.0" />
       <TextField fx:id="cantidad_añadirProducto" layoutX="201.0" layoutY="252.0" />
       <TextField fx:id="nombre_añadirProducto" layoutX="201.0" layoutY="178.0" />
-      <Button fx:id="aceptar_añadirProducto" layoutX="476.0" layoutY="249.0" mnemonicParsing="false" onAction="#aceptar_añadirProducto" text="Aceptar " />
-      <Button fx:id="restaurar_añadirProducto" layoutX="476.0" layoutY="350.0" mnemonicParsing="false" onAction="#restaurar_añadirProducto" text="Restaurar" />
-      <Button fx:id="cancelar_añadirProducto" layoutX="476.0" layoutY="454.0" mnemonicParsing="false" onAction="#cancelar_añadirProducto" text="Cancelar" />
+      <Button fx:id="aceptar_añadirProducto" layoutX="520.0" layoutY="252.0" mnemonicParsing="false" onAction="#aceptar_añadirProducto" text="Aceptar" />
+      <Button fx:id="restaurar_añadirProducto" layoutX="520.0" layoutY="345.0" mnemonicParsing="false" onAction="#restaurar_añadirProducto" text="Restaurar" />
+      <Button fx:id="cancelar_añadirProducto" layoutX="520.0" layoutY="449.0" mnemonicParsing="false" onAction="#cancelar_añadirProducto" text="Cancelar" />
    </children>
    <opaqueInsets>
       <Insets />

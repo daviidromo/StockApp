@@ -137,12 +137,11 @@ public class FXML_PrincipalController implements Initializable {
     
 
     @FXML
-    private void prin_añadirProducto(ActionEvent event) {
-        try {
-// carga la vista
+    private void prin_añadirProducto(ActionEvent event) throws IOException {
+        
+            // carga la vista
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/FXML_AñadirProductos.fxml"));
 
-            MetodosVarios.cerrarVentanas(event);
 
             // Cargo el padre
             Parent root;
@@ -158,17 +157,33 @@ public class FXML_PrincipalController implements Initializable {
             stage.setScene(scene);
             stage.setTitle("");
             stage.showAndWait();
-        } catch (IOException ex) {
-            Logger.getLogger(FXML_PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 
     @FXML
     private void prin_borrarProducto(ActionEvent event) {
+        
     }
 
     @FXML
-    private void prin_editarProducto(ActionEvent event) {
+    private void prin_editarProducto(ActionEvent event) throws IOException {
+        // carga la vista
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/FXML_EditarProducto.fxml"));
+
+            // Cargo el padre
+            Parent root;
+            root = loader.load();
+
+            // Creo la scene
+            Scene scene = new Scene(root);
+
+            // Creo la stage
+            Stage stage = new Stage();
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.setTitle("");
+            stage.showAndWait();
     }
 
     @FXML
