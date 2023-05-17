@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -134,56 +136,72 @@ public class FXML_PrincipalController implements Initializable {
 
     }
 
-    
-
     @FXML
     private void prin_añadirProducto(ActionEvent event) throws IOException {
-        
-            // carga la vista
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/FXML_AñadirProductos.fxml"));
 
+        // carga la vista
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/FXML_AñadirProductos.fxml"));
 
-            // Cargo el padre
-            Parent root;
-            root = loader.load();
+        // Cargo el padre
+        Parent root;
+        root = loader.load();
 
-            // Creo la scene
-            Scene scene = new Scene(root);
+        // Creo la scene
+        Scene scene = new Scene(root);
 
-            // Creo la stage
-            Stage stage = new Stage();
+        // Creo la stage
+        Stage stage = new Stage();
 
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            stage.setTitle("");
-            stage.showAndWait();
-        
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.setTitle("");
+        stage.showAndWait();
+        // Abrimos una ventana de confirmacion
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(null);
+        alert.setTitle("ACTUALIZAR");
+        alert.setContentText("¿Quieres actualizar la tabla?");
+        // Cogemos el resultado del boton seleccionado
+        Optional<ButtonType> action = alert.showAndWait();
+
+        // Si hemos pulsado en aceptar
+        if (action.get() == ButtonType.OK) {
+
+            cargarTabla();
+        } else {
+            Alert alertt = new Alert(Alert.AlertType.ERROR);
+            alertt.setHeaderText(null);
+            alertt.setTitle("Error");
+            alertt.setContentText("No se ha actualizado la tabla");
+            alertt.showAndWait();
+        }
+
     }
 
     @FXML
     private void prin_borrarProducto(ActionEvent event) {
-        
+
     }
 
     @FXML
     private void prin_editarProducto(ActionEvent event) throws IOException {
         // carga la vista
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/FXML_EditarProducto.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/FXML_EditarProducto.fxml"));
 
-            // Cargo el padre
-            Parent root;
-            root = loader.load();
+        // Cargo el padre
+        Parent root;
+        root = loader.load();
 
-            // Creo la scene
-            Scene scene = new Scene(root);
+        // Creo la scene
+        Scene scene = new Scene(root);
 
-            // Creo la stage
-            Stage stage = new Stage();
+        // Creo la stage
+        Stage stage = new Stage();
 
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            stage.setTitle("");
-            stage.showAndWait();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.setTitle("");
+        stage.showAndWait();
     }
 
     @FXML

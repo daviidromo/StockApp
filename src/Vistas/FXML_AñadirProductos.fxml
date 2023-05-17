@@ -15,7 +15,7 @@
       <Text layoutX="56.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CANTIDAD" />
       <Text layoutX="56.0" layoutY="368.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNIDAD" />
       <Text layoutX="56.0" layoutY="568.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CANTIDAD MINIMA" />
-      <TextField fx:id="id_añadirProducto" editable="false" layoutX="201.0" layoutY="108.0" />
+      <TextField fx:id="id_añadirProducto" layoutX="201.0" layoutY="108.0" />
       <TextField fx:id="cantidadMinima_añadirProducto" layoutX="201.0" layoutY="545.0" />
       <TextField fx:id="precio_añadirProducto" layoutX="201.0" layoutY="449.0" />
       <TextField fx:id="unidad_añadirProducto" layoutX="201.0" layoutY="345.0" />

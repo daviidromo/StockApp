@@ -29,6 +29,7 @@ public class MetodosVarios {
         stage.close();
     }
 
+    
     public void cancelar(TextField id, TextField nombre, TextField cantidad, TextField unidad, TextField precio, TextField cantMin) {
         id.setText("");
         nombre.setText("");
