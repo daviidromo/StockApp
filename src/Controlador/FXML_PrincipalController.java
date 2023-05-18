@@ -27,6 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -60,7 +61,7 @@ public class FXML_PrincipalController implements Initializable {
 
     Conexion conexion;
 
-    ObservableList<Productos> lista_Producto = FXCollections.observableArrayList();
+    static ObservableList<Productos> lista_Producto = FXCollections.observableArrayList();
     @FXML
     private TableView<Productos> tabla_productos;
     @FXML
@@ -74,7 +75,7 @@ public class FXML_PrincipalController implements Initializable {
     @FXML
     private TextField prin_precio_GastoProducto;
     @FXML
-    private TextField prin_unidad_GastoProducto;
+    private ComboBox<String> prin_unidad_GastoProducto;
     @FXML
     private TextField prin_cantidad_GastoProducto;
     @FXML
@@ -93,6 +94,10 @@ public class FXML_PrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         prepararTabla();
         cargarTabla();
+    }
+
+    public static ObservableList<Productos> getProductList() {
+        return lista_Producto;
     }
 
     public void prepararTabla() {
@@ -179,35 +184,10 @@ public class FXML_PrincipalController implements Initializable {
     }
 
     @FXML
-    private void prin_borrarProducto(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void prin_editarProducto(ActionEvent event) throws IOException {
-        // carga la vista
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/FXML_EditarProducto.fxml"));
-
-        // Cargo el padre
-        Parent root;
-        root = loader.load();
-
-        // Creo la scene
-        Scene scene = new Scene(root);
-
-        // Creo la stage
-        Stage stage = new Stage();
-
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.setTitle("");
-        stage.showAndWait();
-    }
-
-    @FXML
-    private void prin_gastos(MouseEvent event) {
+    private void prin_borrarProducto(ActionEvent event) throws SQLException {
         // Obtengo el producto seleccionado
         Productos a = (Productos) this.tabla_productos.getSelectionModel().getSelectedItem();
+
         // Si es nulo, muestro error
         if (a == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -216,68 +196,191 @@ public class FXML_PrincipalController implements Initializable {
             alert.setContentText("Debes seleccionar un producto");
             alert.showAndWait();
         } else {
-            try {
-                prin_id_GastoProducto.setText(a.getId() + "");
-                prin_nombre_GastoProducto.setText(a.getNombre());
-                prin_unidad_GastoProducto.setText(a.getUnidad());
-                prin_precio_GastoProducto.setText(a.getPrecio() + "");
-                prin_CantMinima_GastoProducto.setText(a.getCantidadMinima() + "");
-            } catch (Exception ex) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText(null);
-                alert.setTitle("Error");
-                alert.setContentText(ex.getMessage());
-                alert.showAndWait();
+            // Abrimos una ventana de confirmacion
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText(null);
+            alert.setTitle("ACTUALIZAR");
+            alert.setContentText("¿Seguro que quieres eliminar este producto?");
+            // Cogemos el resultado del boton seleccionado
+            Optional<ButtonType> action = alert.showAndWait();
+
+            // Si hemos pulsado en aceptar
+            if (action.get() == ButtonType.OK) {
+
+                    // Borramos el usuario
+                    if (a.borrarProducto()) {
+
+                        Alert alertA = new Alert(Alert.AlertType.INFORMATION);
+                        alertA.setHeaderText(null);
+                        alertA.setTitle("Exito");
+                        alertA.setContentText("Se ha borrado el producto");
+                        alertA.showAndWait();
+
+                    }
+
+                }else {
+                    Alert alertt = new Alert(Alert.AlertType.ERROR);
+                    alertt.setHeaderText(null);
+                    alertt.setTitle("Error");
+                    alertt.setContentText("No se ha eliminado el producto");
+                    alertt.showAndWait();
+                }
+
+                // Cargamos de nuevo
+                this.cargarTabla();
+                this.tabla_productos.refresh();
+
             }
+
         }
 
-    }
+        @FXML
+        private void prin_editarProducto
+        (ActionEvent event) throws IOException {
+            // Obtengo el producto seleccionado
+            Productos a = (Productos) this.tabla_productos.getSelectionModel().getSelectedItem();
 
-    @FXML
-    private void prin_aceptarGasto(ActionEvent event) throws SQLException {
-        // Obtengo el producto seleccionado
-        Productos a = (Productos) this.tabla_productos.getSelectionModel().getSelectedItem();
-        String cantidadRestarStr = prin_cantidad_GastoProducto.getText();
-
-        if (a == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("Debes seleccionar un producto");
-            alert.showAndWait();
-        } else if (cantidadRestarStr.equals("")) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("Debes poner una cantidad");
-            alert.showAndWait();
-        } else {
-            double cantidadInicial = a.getCantidad();
-            double cantidadRestar = Double.parseDouble(cantidadRestarStr);
-            double cantidadFinal = 0;
-            if (cantidadRestar > cantidadInicial) {
+            // Si es nulo, muestro error
+            if (a == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
                 alert.setTitle("Error");
-                alert.setContentText("Debes poner menos cantidad de la que tienes");
+                alert.setContentText("Debes seleccionar un producto");
                 alert.showAndWait();
             } else {
-                cantidadFinal = cantidadInicial - cantidadRestar;
-                MetodosVarios m = new MetodosVarios();
-                int id = Integer.parseInt(prin_id_GastoProducto.getText());
-                m.actualizar(cantidadFinal, id);
-                cargarTabla();
-                m.cancelar(prin_id_GastoProducto, prin_nombre_GastoProducto, prin_cantidad_GastoProducto, prin_unidad_GastoProducto, prin_precio_GastoProducto, prin_CantMinima_GastoProducto);
+                try {
+                    // carga la vista
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/FXML_EditarProducto.fxml"));
 
+                    // Cargo el padre
+                    Parent root;
+                    root = loader.load();
+
+                    // Creo la scene
+                    Scene scene = new Scene(root);
+
+                    // Cargo el controlador asociado a la vista y le paso el producto seleccionado
+                    FXML_EditarProductoController controlador = loader.getController();
+                    controlador.initAttributes(a);
+                    // Creo la stage
+                    Stage stage = new Stage();
+
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.setScene(scene);
+                    stage.setTitle("");
+                    stage.showAndWait();
+                    // Abrimos una ventana de confirmacion
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setHeaderText(null);
+                    alert.setTitle("ACTUALIZAR");
+                    alert.setContentText("¿Quieres actualizar la tabla?");
+                    // Cogemos el resultado del boton seleccionado
+                    Optional<ButtonType> action = alert.showAndWait();
+
+                    // Si hemos pulsado en aceptar
+                    if (action.get() == ButtonType.OK) {
+
+                        cargarTabla();
+                    } else {
+                        Alert alertt = new Alert(Alert.AlertType.ERROR);
+                        alertt.setHeaderText(null);
+                        alertt.setTitle("Error");
+                        alertt.setContentText("No se ha actualizado la tabla");
+                        alertt.showAndWait();
+                    }
+
+                } catch (IOException ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Error");
+                    alert.setContentText(ex.getMessage());
+                    alert.showAndWait();
+                }
             }
+
         }
 
-    }
+        @FXML
+        private void prin_gastos
+        (MouseEvent event
+        
+            ) {
+        // Obtengo el producto seleccionado
+        Productos a = (Productos) this.tabla_productos.getSelectionModel().getSelectedItem();
+            // Si es nulo, muestro error
+            if (a == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setTitle("Error");
+                alert.setContentText("Debes seleccionar un producto");
+                alert.showAndWait();
+            } else {
+                try {
+                    prin_id_GastoProducto.setText(a.getId() + "");
+                    prin_nombre_GastoProducto.setText(a.getNombre());
+                    prin_unidad_GastoProducto.setValue(a.getUnidad());
+                    prin_precio_GastoProducto.setText(a.getPrecio() + "");
+                    prin_CantMinima_GastoProducto.setText(a.getCantidadMinima() + "");
+                } catch (Exception ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Error");
+                    alert.setContentText(ex.getMessage());
+                    alert.showAndWait();
+                }
+            }
 
-    @FXML
-    private void prin_cancelarGastos(ActionEvent event) {
+        }
+
+        @FXML
+        private void prin_aceptarGasto
+        (ActionEvent event) throws SQLException {
+            // Obtengo el producto seleccionado
+            Productos a = (Productos) this.tabla_productos.getSelectionModel().getSelectedItem();
+            String cantidadRestarStr = prin_cantidad_GastoProducto.getText();
+
+            if (a == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setTitle("Error");
+                alert.setContentText("Debes seleccionar un producto");
+                alert.showAndWait();
+            } else if (cantidadRestarStr.equals("")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setTitle("Error");
+                alert.setContentText("Debes poner una cantidad");
+                alert.showAndWait();
+            } else {
+                double cantidadInicial = a.getCantidad();
+                double cantidadRestar = Double.parseDouble(cantidadRestarStr);
+                double cantidadFinal = 0;
+                if (cantidadRestar > cantidadInicial) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Error");
+                    alert.setContentText("Debes poner menos cantidad de la que tienes");
+                    alert.showAndWait();
+                } else {
+                    cantidadFinal = cantidadInicial - cantidadRestar;
+                    MetodosVarios m = new MetodosVarios();
+                    int id = Integer.parseInt(prin_id_GastoProducto.getText());
+                    m.actualizar(cantidadFinal, id);
+                    cargarTabla();
+                    m.cancelar(prin_id_GastoProducto, prin_nombre_GastoProducto, prin_cantidad_GastoProducto, prin_unidad_GastoProducto, prin_precio_GastoProducto, prin_CantMinima_GastoProducto);
+
+                }
+            }
+
+        }
+
+        @FXML
+        private void prin_cancelarGastos
+        (ActionEvent event
+        
+            ) {
         cargarTabla();
-        MetodosVarios m = new MetodosVarios();
-        m.cancelar(prin_id_GastoProducto, prin_nombre_GastoProducto, prin_cantidad_GastoProducto, prin_unidad_GastoProducto, prin_precio_GastoProducto, prin_CantMinima_GastoProducto);
+            MetodosVarios m = new MetodosVarios();
+            m.cancelar(prin_id_GastoProducto, prin_nombre_GastoProducto, prin_cantidad_GastoProducto, prin_unidad_GastoProducto, prin_precio_GastoProducto, prin_CantMinima_GastoProducto);
+        }
     }
-}

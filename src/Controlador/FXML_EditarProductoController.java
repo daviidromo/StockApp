@@ -5,12 +5,20 @@
  */
 package Controlador;
 
+import Modelo.Productos;
+import Utiles.Conexion;
+import Utiles.MetodosVarios;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 /**
@@ -27,7 +35,7 @@ public class FXML_EditarProductoController implements Initializable {
     @FXML
     private TextField precio_editarProducto;
     @FXML
-    private TextField unidad_editarProducto;
+    private ComboBox<String> unidad_editarProducto;
     @FXML
     private TextField cantidad_editarProducto;
     @FXML
@@ -38,14 +46,103 @@ public class FXML_EditarProductoController implements Initializable {
     private Button restaurar_editarProducto;
     @FXML
     private Button cancelar_editarProducto;
+    private Productos p;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        unidad_editarProducto.getItems().add("Kilogramos");
+        unidad_editarProducto.getItems().add("Litros");
+        unidad_editarProducto.getItems().add("Unidades");
+    }
 
-    
+    void initAttributes(Productos a) {
+        p = a;
+        id_editarProducto.setText(a.getId() + "");
+        nombre_editarProducto.setText(a.getNombre() + "");
+        cantidad_editarProducto.setText(a.getCantidad() + "");
+        unidad_editarProducto.setValue(a.getUnidad() + "");
+        precio_editarProducto.setText(a.getPrecio() + "");
+        cantidadMinima_editarProducto.setText(a.getCantidadMinima() + "");
+
+    }
+
+    @FXML
+    private boolean aceptar_editarProducto(ActionEvent event) throws SQLException {
+        String id = id_editarProducto.getText();
+        String nombre = nombre_editarProducto.getText();
+        String cantidad = cantidad_editarProducto.getText();
+        String unidad = unidad_editarProducto.getValue();
+        String precio = precio_editarProducto.getText();
+        String cantidadMin = cantidadMinima_editarProducto.getText();
+        double cantidadComprobar = 0;
+        double precioComprobar = 0;
+        double cantidadMinComprobar = 0;
+        try {
+                cantidadComprobar = Double.parseDouble(cantidad);
+            
+                precioComprobar = Double.parseDouble(precio);
+           
+                cantidadMinComprobar = Double.parseDouble(cantidadMin);
+            } catch (NumberFormatException e) {
+                Alert alertt = new Alert(Alert.AlertType.ERROR);
+                alertt.setHeaderText(null);
+                alertt.setTitle("Error");
+                alertt.setContentText("Uno de los campos (cantidad, precio y/o cantidad minima no es un numero");
+                alertt.showAndWait();
+
+            }
+        
+        Conexion conexion = new Conexion();
+
+        // Formo el SQL
+        String SQL = "";
+        SQL += "UPDATE productos SET ";
+        SQL += "pro_nombre='" + nombre + "',";
+        SQL += "pro_cantidad='" + cantidad + "',";
+        SQL += "pro_unidad='" + unidad + "',";
+        SQL += "pro_precio='" + precio + "',";
+        SQL += "pro_cantidadMinima='" + cantidadMin + "'";
+        SQL += " WHERE pro_id = '" + id + "'";
+
+        // Recupero las filas
+        int filas = conexion.ejecutarInstruccion(SQL);
+
+        conexion.cerrarConexion();
+        MetodosVarios.cerrarVentanas(event);
+
+        return filas > 0;
+
+    }
+
+    @FXML
+    private void restaurar_editarProducto(ActionEvent event) {
+        // Abrimos una ventana de confirmacion
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(null);
+        alert.setTitle("CONFIRMAR");
+        alert.setContentText("¿Quieres restaurar el producto?");
+        // Cogemos el resultado del boton seleccionado
+        Optional<ButtonType> action = alert.showAndWait();
+
+        // Si hemos pulsado en aceptar
+        if (action.get() == ButtonType.OK) {
+            initAttributes(p);
+        } else {
+            Alert alertt = new Alert(Alert.AlertType.ERROR);
+            alertt.setHeaderText(null);
+            alertt.setTitle("Error");
+            alertt.setContentText("No se ha restaurado el producto");
+            alertt.showAndWait();
+        }
+    }
+
+    @FXML
+    private void cancelar_editarProducto(ActionEvent event) {
+        MetodosVarios.cerrarVentanas(event);
+
+    }
+
 }

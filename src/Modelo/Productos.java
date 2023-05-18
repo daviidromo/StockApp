@@ -6,6 +6,7 @@
 package Modelo;
 
 import Utiles.Conexion;
+import java.sql.SQLException;
 
 /**
  *
@@ -13,13 +14,13 @@ import Utiles.Conexion;
  */
 public class Productos {
 
-   private int id;
-   private String nombre;
-   private double cantidad;
-   private String unidad;
-   private double precio;
-   private double cantidadMinima;
-   Conexion conexion;
+    private int id;
+    private String nombre;
+    private double cantidad;
+    private String unidad;
+    private double precio;
+    private double cantidadMinima;
+    Conexion conexion;
 
     public Productos(int id, String nombre, double cantidad, String unidad, double precio, double cantidadMinima) {
         this.id = id;
@@ -78,7 +79,18 @@ public class Productos {
         this.cantidadMinima = cantidadMinima;
     }
 
-  
+    public boolean borrarProducto() throws SQLException {
 
-    
+        Conexion conexion = new Conexion();
+
+        String SQL = "DELETE FROM productos where pro_id = '" + this.id + "'";
+
+        int filas = conexion.ejecutarInstruccion(SQL);
+
+        conexion.cerrarConexion();
+
+        return filas > 0;
+
+    }
+
 }

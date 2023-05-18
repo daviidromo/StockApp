@@ -5,18 +5,21 @@
  */
 package Controlador;
 
+import Modelo.Productos;
 import Utiles.Conexion;
 import Utiles.MetodosVarios;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 /**
@@ -33,7 +36,7 @@ public class FXML_AñadirProductoController implements Initializable {
     @FXML
     private TextField precio_añadirProducto;
     @FXML
-    private TextField unidad_añadirProducto;
+    private ComboBox<String> unidad_añadirProducto;
     @FXML
     private TextField cantidad_añadirProducto;
     @FXML
@@ -50,33 +53,66 @@ public class FXML_AñadirProductoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        unidad_añadirProducto.getItems().add("Kilogramos");
+        unidad_añadirProducto.getItems().add("Litros");
+        unidad_añadirProducto.getItems().add("Unidades");
     }
 
     @FXML
     private boolean aceptar_añadirProducto(ActionEvent event) throws SQLException {
         String id = id_añadirProducto.getText();
-        String nombre = nombre_añadirProducto.getText();
-        String cantidad = cantidad_añadirProducto.getText();
-        String unidad = unidad_añadirProducto.getText();
-        String precio = precio_añadirProducto.getText();
-        String cantMin = cantidadMinima_añadirProducto.getText();
+        int idComprobar = 0;
+        try {
+            idComprobar = Integer.parseInt(id);
+        } catch (NumberFormatException e) {
+            Alert alertt = new Alert(Alert.AlertType.ERROR);
+            alertt.setHeaderText(null);
+            alertt.setTitle("Error");
+            alertt.setContentText("El id no es un numero");
+            alertt.showAndWait();
 
-        Conexion conexion = new Conexion();
+        }
+        boolean idExists = false;
 
-        // Formo el SQL
-        String SQL = "";
-        SQL += "INSERT INTO productos VALUES('";
-        SQL +=  id + "', '" + nombre + "', '";
-        SQL += cantidad + "', '" + unidad + "', '" + precio+"','" ;
-        SQL += cantMin + "' )";
-        // Recupero las filas
-        int filas = conexion.ejecutarInstruccion(SQL);
+        // Recorre la lista de productos existentes
+        for (Productos product : FXML_PrincipalController.getProductList()) {
+            if (product.getId() == idComprobar) {
+                idExists = true;
+                break;
+            }
+        }
 
-        conexion.cerrarConexion();
-        MetodosVarios.cerrarVentanas(event);
-        return filas > 0;
-    
+        // Verifica si el ID ya existe
+        if (idExists) {
+            Alert alertt = new Alert(Alert.AlertType.ERROR);
+            alertt.setHeaderText(null);
+            alertt.setTitle("Error");
+            alertt.setContentText("El id existe");
+            alertt.showAndWait();
+        } else {
+            String nombre = nombre_añadirProducto.getText();
+            String cantidad = cantidad_añadirProducto.getText();
+            String unidad = unidad_añadirProducto.getValue();
+            String precio = precio_añadirProducto.getText();
+            String cantMin = cantidadMinima_añadirProducto.getText();
+
+            Conexion conexion = new Conexion();
+
+            // Formo el SQL
+            String SQL = "";
+            SQL += "INSERT INTO productos VALUES('";
+            SQL += id + "', '" + nombre + "', '";
+            SQL += cantidad + "', '" + unidad + "', '" + precio + "','";
+            SQL += cantMin + "' )";
+            // Recupero las filas
+            int filas = conexion.ejecutarInstruccion(SQL);
+
+            conexion.cerrarConexion();
+            MetodosVarios.cerrarVentanas(event);
+            return filas > 0;
+        }
+        return false;
+
     }
 
     @FXML

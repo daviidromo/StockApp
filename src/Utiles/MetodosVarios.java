@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -29,12 +30,11 @@ public class MetodosVarios {
         stage.close();
     }
 
-    
-    public void cancelar(TextField id, TextField nombre, TextField cantidad, TextField unidad, TextField precio, TextField cantMin) {
+    public void cancelar(TextField id, TextField nombre, TextField cantidad, ComboBox unidad, TextField precio, TextField cantMin) {
         id.setText("");
         nombre.setText("");
         cantidad.setText("");
-        unidad.setText("");
+        unidad.setValue("");
         precio.setText("");
         cantMin.setText("");
     }
@@ -57,6 +57,5 @@ public class MetodosVarios {
 
         return filas > 0;
     }
-
 
 }
