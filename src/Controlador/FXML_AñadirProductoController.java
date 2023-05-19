@@ -60,6 +60,12 @@ public class FXML_AñadirProductoController implements Initializable {
 
     @FXML
     private boolean aceptar_añadirProducto(ActionEvent event) throws SQLException {
+        String cantidadInicial = cantidad_añadirProducto.getText();
+        double cantidadI = Double.parseDouble(cantidadInicial);
+        String cantidadMinima = cantidadMinima_añadirProducto.getText();
+        double cantidadM = Double.parseDouble(cantidadMinima);
+        
+
         String id = id_añadirProducto.getText();
         int idComprobar = 0;
         try {
@@ -89,7 +95,17 @@ public class FXML_AñadirProductoController implements Initializable {
             alertt.setTitle("Error");
             alertt.setContentText("El id existe");
             alertt.showAndWait();
-        } else {
+        } 
+        
+        else {
+            if (cantidadM >= cantidadI) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("Debes poner menos cantidad de la que tienes");
+            alert.showAndWait();
+        }else{
+            
             String nombre = nombre_añadirProducto.getText();
             String cantidad = cantidad_añadirProducto.getText();
             String unidad = unidad_añadirProducto.getValue();
@@ -110,6 +126,7 @@ public class FXML_AñadirProductoController implements Initializable {
             conexion.cerrarConexion();
             MetodosVarios.cerrarVentanas(event);
             return filas > 0;
+        }
         }
         return false;
 

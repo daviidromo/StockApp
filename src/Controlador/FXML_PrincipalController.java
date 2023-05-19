@@ -301,10 +301,7 @@ public class FXML_PrincipalController implements Initializable {
         }
 
         @FXML
-        private void prin_gastos
-        (MouseEvent event
-        
-            ) {
+        private void prin_gastos(MouseEvent event) {
         // Obtengo el producto seleccionado
         Productos a = (Productos) this.tabla_productos.getSelectionModel().getSelectedItem();
             // Si es nulo, muestro error
@@ -333,8 +330,7 @@ public class FXML_PrincipalController implements Initializable {
         }
 
         @FXML
-        private void prin_aceptarGasto
-        (ActionEvent event) throws SQLException {
+        private void prin_aceptarGasto (ActionEvent event) throws SQLException {
             // Obtengo el producto seleccionado
             Productos a = (Productos) this.tabla_productos.getSelectionModel().getSelectedItem();
             String cantidadRestarStr = prin_cantidad_GastoProducto.getText();
