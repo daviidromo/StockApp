@@ -71,50 +71,64 @@ public class FXML_EditarProductoController implements Initializable {
 
     @FXML
     private boolean aceptar_editarProducto(ActionEvent event) throws SQLException {
+
         String id = id_editarProducto.getText();
         String nombre = nombre_editarProducto.getText();
         String cantidad = cantidad_editarProducto.getText();
         String unidad = unidad_editarProducto.getValue();
         String precio = precio_editarProducto.getText();
         String cantidadMin = cantidadMinima_editarProducto.getText();
+
+        double cantidadI = 0;
+        double cantidadM = 0;
         double cantidadComprobar = 0;
         double precioComprobar = 0;
         double cantidadMinComprobar = 0;
         try {
-                cantidadComprobar = Double.parseDouble(cantidad);
-            
-                precioComprobar = Double.parseDouble(precio);
-           
-                cantidadMinComprobar = Double.parseDouble(cantidadMin);
-            } catch (NumberFormatException e) {
-                Alert alertt = new Alert(Alert.AlertType.ERROR);
-                alertt.setHeaderText(null);
-                alertt.setTitle("Error");
-                alertt.setContentText("Uno de los campos (cantidad, precio y/o cantidad minima no es un numero");
-                alertt.showAndWait();
+            cantidadComprobar = Double.parseDouble(cantidad);
 
-            }
-        
-        Conexion conexion = new Conexion();
+            precioComprobar = Double.parseDouble(precio);
 
-        // Formo el SQL
-        String SQL = "";
-        SQL += "UPDATE productos SET ";
-        SQL += "pro_nombre='" + nombre + "',";
-        SQL += "pro_cantidad='" + cantidad + "',";
-        SQL += "pro_unidad='" + unidad + "',";
-        SQL += "pro_precio='" + precio + "',";
-        SQL += "pro_cantidadMinima='" + cantidadMin + "'";
-        SQL += " WHERE pro_id = '" + id + "'";
+            cantidadMinComprobar = Double.parseDouble(cantidadMin);
 
-        // Recupero las filas
-        int filas = conexion.ejecutarInstruccion(SQL);
+            cantidadI = Double.parseDouble(cantidad);
+            cantidadM = Double.parseDouble(cantidadMin);
+        } catch (NumberFormatException e) {
+            Alert alertt = new Alert(Alert.AlertType.ERROR);
+            alertt.setHeaderText(null);
+            alertt.setTitle("Error");
+            alertt.setContentText("Uno de los campos (cantidad, precio y/o cantidad minima no es un numero");
+            alertt.showAndWait();
 
-        conexion.cerrarConexion();
-        MetodosVarios.cerrarVentanas(event);
+        }
+        if (cantidadM >= cantidadI) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("Debes poner menos cantidad minima de la cantidad que hay");
+            alert.showAndWait();
+        } else {
+            Conexion conexion = new Conexion();
 
-        return filas > 0;
+            // Formo el SQL
+            String SQL = "";
+            SQL += "UPDATE productos SET ";
+            SQL += "pro_nombre='" + nombre + "',";
+            SQL += "pro_cantidad='" + cantidad + "',";
+            SQL += "pro_unidad='" + unidad + "',";
+            SQL += "pro_precio='" + precio + "',";
+            SQL += "pro_cantidadMinima='" + cantidadMin + "'";
+            SQL += " WHERE pro_id = '" + id + "'";
 
+            // Recupero las filas
+            int filas = conexion.ejecutarInstruccion(SQL);
+
+            conexion.cerrarConexion();
+            MetodosVarios.cerrarVentanas(event);
+
+            return filas > 0;
+        }
+        return false;
     }
 
     @FXML
