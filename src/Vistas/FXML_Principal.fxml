@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.FXML_PrincipalController" >
+<AnchorPane id="AnchorPane" prefHeight="1000.0" prefWidth="1920.0" stylesheets="@../Vistas/StockApp.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.FXML_PrincipalController">
    <children>
       <TableView fx:id="tabla_productos" layoutX="50.0" layoutY="200.0" onMousePressed="#prin_gastos" prefHeight="700.0" prefWidth="1044.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="826.0" AnchorPane.topAnchor="200.0">
         <columns>
@@ -24,7 +24,7 @@
       </TableView>
       <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="1920.0" />
       <Text layoutX="50.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BUSCAR PRODUCTO" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="113.05078125" />
-      <TextField fx:id="principal_buscar" layoutX="196.0" layoutY="108.0" AnchorPane.leftAnchor="196.0" AnchorPane.topAnchor="108.0" />
+      <TextField fx:id="principal_buscar" layoutX="196.0" layoutY="108.0" onKeyPressed="#BuscaPorNombre" AnchorPane.leftAnchor="196.0" AnchorPane.topAnchor="108.0" />
       <Button fx:id="prin_añadirProducto_boton" layoutX="294.0" layoutY="923.0" mnemonicParsing="false" onAction="#prin_añadirProducto" text="Añadir Producto" />
       <Button fx:id="prin_eliminarProducto_boton" layoutX="671.0" layoutY="923.0" mnemonicParsing="false" onAction="#prin_borrarProducto" text="Eliminar Producto" />
       <AnchorPane layoutX="1167.0" layoutY="200.0" prefHeight="627.0" prefWidth="682.0" style="-fx-border-color: black; -fx-border-width: 2px;">
@@ -50,5 +50,6 @@
          </opaqueInsets>
       </AnchorPane>
       <Button fx:id="prin_editarProducto_boton" layoutX="481.0" layoutY="923.0" mnemonicParsing="false" onAction="#prin_editarProducto" text="Editar Producto" />
+      <Text layoutX="662.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STOCKAPP" wrappingWidth="257.28125" />
    </children>
 </AnchorPane>

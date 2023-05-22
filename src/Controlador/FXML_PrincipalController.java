@@ -33,6 +33,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -87,19 +88,16 @@ public class FXML_PrincipalController implements Initializable {
     private Button prin_cancelar_GastoProducto;
     @FXML
     private Button prin_editarProducto_boton;
-    
-   
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         prepararTabla();
         cargarTabla();
-       
-        
+
     }
 
     public static ObservableList<Productos> getProductList() {
@@ -108,48 +106,47 @@ public class FXML_PrincipalController implements Initializable {
 
     public void prepararTabla() {
 
-  /*      tabla_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        /*      tabla_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         tabla_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tabla_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
         tabla_unidad.setCellValueFactory(new PropertyValueFactory<>("unidad"));
         tabla_precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
         tabla_cantidadMinima.setCellValueFactory(new PropertyValueFactory<>("cantidadMinima"));
-*/
-    tabla_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-    tabla_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-    tabla_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
-    tabla_unidad.setCellValueFactory(new PropertyValueFactory<>("unidad"));
-    tabla_precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-    
-    // Configurar estilo de celda personalizada para la columna tabla_cantidad
-    tabla_cantidad.setCellFactory(column -> new TableCell<Productos, Double>() {
-        @Override
-        protected void updateItem(Double cantidad, boolean empty) {
-            super.updateItem(cantidad, empty);
+         */
+        tabla_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tabla_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        tabla_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        tabla_unidad.setCellValueFactory(new PropertyValueFactory<>("unidad"));
+        tabla_precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
 
-            if (empty) {
-                setText(null);
-                setStyle("");
-            } else {
-                setText(String.valueOf(cantidad));
+        // Configurar estilo de celda personalizada para la columna tabla_cantidad
+        tabla_cantidad.setCellFactory(column -> new TableCell<Productos, Double>() {
+            @Override
+            protected void updateItem(Double cantidad, boolean empty) {
+                super.updateItem(cantidad, empty);
 
-                // Obtener el objeto Producto asociado a esta celda
-                Productos producto = getTableView().getItems().get(getIndex());
-
-                // Comprobar si el producto tiene cantidad igual a la cantidad mínima
-                if (producto.getCantidad() <= producto.getCantidadMinima()) {
-                                    setStyle("-fx-background-color: red; -fx-text-fill: white;");
-
-
+                if (empty) {
+                    setText(null);
+                    setStyle("");
                 } else {
-                    setStyle(""); // Estilo por defecto
+                    setText(String.valueOf(cantidad));
+
+                    // Obtener el objeto Producto asociado a esta celda
+                    Productos producto = getTableView().getItems().get(getIndex());
+
+                    // Comprobar si el producto tiene cantidad igual a la cantidad mínima
+                    if (producto.getCantidad() <= producto.getCantidadMinima()) {
+                        setStyle("-fx-background-color: red; -fx-text-fill: white;");
+
+                    } else {
+                        setStyle(""); // Estilo por defecto
+                    }
                 }
             }
-        }
-    });
+        });
 
-    tabla_cantidadMinima.setCellValueFactory(new PropertyValueFactory<>("cantidadMinima"));
-}
+        tabla_cantidadMinima.setCellValueFactory(new PropertyValueFactory<>("cantidadMinima"));
+    }
 
     public void cargarTabla() {
 
@@ -255,6 +252,7 @@ public class FXML_PrincipalController implements Initializable {
             this.tabla_productos.refresh();
 
         }
+        principal_buscar.setText("");
         MetodosVarios m = new MetodosVarios();
         m.cancelar(prin_id_GastoProducto, prin_nombre_GastoProducto, prin_cantidad_GastoProducto, prin_unidad_GastoProducto, prin_precio_GastoProducto, prin_CantMinima_GastoProducto);
 
@@ -305,6 +303,7 @@ public class FXML_PrincipalController implements Initializable {
                 alert.showAndWait();
             }
         }
+                principal_buscar.setText("");
         MetodosVarios m = new MetodosVarios();
         m.cancelar(prin_id_GastoProducto, prin_nombre_GastoProducto, prin_cantidad_GastoProducto, prin_unidad_GastoProducto, prin_precio_GastoProducto, prin_CantMinima_GastoProducto);
 
@@ -381,7 +380,6 @@ public class FXML_PrincipalController implements Initializable {
                     alertA.setContentText("Has llegado a la cantidad minima de este producto");
                     alertA.showAndWait();
 
-
                 }
                 m.cancelar(prin_id_GastoProducto, prin_nombre_GastoProducto, prin_cantidad_GastoProducto, prin_unidad_GastoProducto, prin_precio_GastoProducto, prin_CantMinima_GastoProducto);
 
@@ -397,4 +395,38 @@ public class FXML_PrincipalController implements Initializable {
         MetodosVarios m = new MetodosVarios();
         m.cancelar(prin_id_GastoProducto, prin_nombre_GastoProducto, prin_cantidad_GastoProducto, prin_unidad_GastoProducto, prin_precio_GastoProducto, prin_CantMinima_GastoProducto);
     }
+
+    
+    @FXML
+    private void BuscaPorNombre(KeyEvent event) throws SQLException {
+        ObservableList<Productos> prod = FXCollections.observableArrayList();
+        // Abro la conexion
+        Conexion conexion = new Conexion();
+
+        // realizo la consulta
+        String SQL = "select *"
+                + "from productos"
+                + " where pro_nombre like '" + principal_buscar.getText().toLowerCase() + "%'";
+
+        ResultSet rs = conexion.ejecutarConsulta(SQL);
+        lista_Producto.removeAll(lista_Producto);
+
+        while (rs.next()) {
+            
+            int id = rs.getInt("pro_id");
+            String nombre = rs.getString("pro_nombre");
+            double cantidad = rs.getDouble("pro_cantidad");
+            String unidad = rs.getString("pro_unidad");
+            double precio = rs.getDouble("pro_precio");
+            double cantidadMinima = rs.getDouble("pro_cantidadMinima");
+
+            Productos producto = new Productos(id, nombre, cantidad, unidad, precio, cantidadMinima);
+            lista_Producto.add(producto);
+
+        }
+
+        rs.close();
+        conexion.cerrarConexion();
+    }
+
 }
