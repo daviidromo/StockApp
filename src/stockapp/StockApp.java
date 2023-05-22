@@ -22,7 +22,7 @@ public class StockApp extends Application {
          Parent root = FXMLLoader.load(getClass().getResource("/Vistas/FXML_Login.fxml"));
         
         Scene scene = new Scene(root);
-        
+        stage.setTitle("StockApp");
         stage.setScene(scene);
         stage.show();
     }

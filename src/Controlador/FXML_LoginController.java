@@ -66,6 +66,7 @@ public class FXML_LoginController implements Initializable {
                 
                 // carga la vista
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/FXML_Principal.fxml"));
+                
                 MetodosVarios.cerrarVentanas(event);
 
                 // Cargo el padre
@@ -79,7 +80,7 @@ public class FXML_LoginController implements Initializable {
 
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(scene);
-                stage.setTitle("");
+                stage.setTitle("StockApp");
                 stage.showAndWait();
                 }
             else if(usuario.equals(log_usuario.getText())){

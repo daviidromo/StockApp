@@ -8,7 +8,6 @@ package Controlador;
 import Modelo.Productos;
 import Utiles.Conexion;
 import Utiles.MetodosVarios;
-import java.awt.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -29,13 +28,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -88,12 +87,15 @@ public class FXML_PrincipalController implements Initializable {
     private Button prin_cancelar_GastoProducto;
     @FXML
     private Button prin_editarProducto_boton;
-
+    
+   
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         prepararTabla();
         cargarTabla();
        
@@ -198,7 +200,7 @@ public class FXML_PrincipalController implements Initializable {
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
-        stage.setTitle("");
+        stage.setTitle("StockApp");
         stage.showAndWait();
 
         cargarTabla();
@@ -290,7 +292,7 @@ public class FXML_PrincipalController implements Initializable {
 
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(scene);
-                stage.setTitle("");
+                stage.setTitle("StockApp");
                 stage.showAndWait();
 
                 cargarTabla();

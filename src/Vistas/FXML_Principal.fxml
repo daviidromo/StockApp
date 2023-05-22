@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.FXML_PrincipalController">
+<AnchorPane id="AnchorPane" prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.FXML_PrincipalController" >
    <children>
       <TableView fx:id="tabla_productos" layoutX="50.0" layoutY="200.0" onMousePressed="#prin_gastos" prefHeight="700.0" prefWidth="1044.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="826.0" AnchorPane.topAnchor="200.0">
         <columns>
