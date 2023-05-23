@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="1000.0" prefWidth="1920.0" stylesheets="@../Vistas/StockApp.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.FXML_PrincipalController">
@@ -17,39 +18,71 @@
           <TableColumn fx:id="tabla_id" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="tabla_nombre" prefWidth="361.60003662109375" text="NOMBRE" />
             <TableColumn fx:id="tabla_cantidad" prefWidth="102.39996337890625" text="CANTIDAD" />
-            <TableColumn fx:id="tabla_unidad" prefWidth="146.4000244140625" text="UNIDAD" />
-            <TableColumn fx:id="tabla_precio" prefWidth="105.5999755859375" text="PRECIO" />
-            <TableColumn fx:id="tabla_cantidadMinima" prefWidth="172.7999267578125" text="CANTIDAD MINIMA" />
+            <TableColumn fx:id="tabla_unidad" prefWidth="142.39996337890625" text="UNIDAD" />
+            <TableColumn fx:id="tabla_precio" prefWidth="172.800048828125" text="PRECIO UNITARIO €" />
+            <TableColumn fx:id="tabla_cantidadMinima" prefWidth="190.40008544921875" text="CANTIDAD MINIMA" />
         </columns>
       </TableView>
       <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="1920.0" />
-      <Text layoutX="50.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BUSCAR PRODUCTO" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="113.05078125" />
       <TextField fx:id="principal_buscar" layoutX="196.0" layoutY="108.0" onKeyPressed="#BuscaPorNombre" AnchorPane.leftAnchor="196.0" AnchorPane.topAnchor="108.0" />
-      <Button fx:id="prin_añadirProducto_boton" layoutX="294.0" layoutY="923.0" mnemonicParsing="false" onAction="#prin_añadirProducto" text="Añadir Producto" />
-      <Button fx:id="prin_eliminarProducto_boton" layoutX="671.0" layoutY="923.0" mnemonicParsing="false" onAction="#prin_borrarProducto" text="Eliminar Producto" />
-      <AnchorPane layoutX="1167.0" layoutY="200.0" prefHeight="627.0" prefWidth="682.0" style="-fx-border-color: black; -fx-border-width: 2px;">
+      <Button fx:id="prin_añadirProducto_boton" layoutX="280.0" layoutY="923.0" mnemonicParsing="false" onAction="#prin_añadirProducto" text="Añadir Producto" />
+      <Button fx:id="prin_eliminarProducto_boton" layoutX="712.0" layoutY="923.0" mnemonicParsing="false" onAction="#prin_borrarProducto" text="Eliminar Producto" />
+      <AnchorPane layoutX="1165.0" layoutY="268.0" prefHeight="564.0" prefWidth="640.0" style="-fx-border-color: black; -fx-border-width: 2px;">
          <children>
-            <Text layoutX="299.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gasto de producto" />
-            <Text layoutX="56.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
-            <Text layoutX="56.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE" />
-            <Text layoutX="56.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRECIO" />
-            <Text layoutX="56.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CANTIDAD" />
-            <Text layoutX="56.0" layoutY="368.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNIDAD" />
-            <Text layoutX="56.0" layoutY="568.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CANTIDAD MINIMA" />
             <TextField fx:id="prin_id_GastoProducto" editable="false" layoutX="201.0" layoutY="108.0" />
-            <TextField fx:id="prin_CantMinima_GastoProducto" editable="false" layoutX="201.0" layoutY="545.0" />
-            <TextField fx:id="prin_precio_GastoProducto" editable="false" layoutX="201.0" layoutY="449.0" />
-            <TextField fx:id="prin_cantidad_GastoProducto" layoutX="201.0" layoutY="252.0" />
             <TextField fx:id="prin_nombre_GastoProducto" editable="false" layoutX="201.0" layoutY="178.0" />
-            <Button fx:id="prin_aceptar_GastoProducto" layoutX="475.0" layoutY="266.0" mnemonicParsing="false" onAction="#prin_aceptarGasto" text="Aceptar " />
-            <Button fx:id="prin_cancelar_GastoProducto" layoutX="475.0" layoutY="345.0" mnemonicParsing="false" onAction="#prin_cancelarGastos" text="Cancelar" />
-            <ComboBox fx:id="prin_unidad_GastoProducto" layoutX="201.0" layoutY="351.0" prefWidth="150.0" />
+            <TextField fx:id="prin_cantidad_GastoProducto" layoutX="201.0" layoutY="252.0" />
+            <ComboBox fx:id="prin_unidad_GastoProducto" layoutX="200.0" layoutY="328.0" prefHeight="34.0" prefWidth="213.0" />
+            <TextField fx:id="prin_precio_GastoProducto" editable="false" layoutX="201.0" layoutY="404.0" />
+            <TextField fx:id="prin_CantMinima_GastoProducto" editable="false" layoutX="201.0" layoutY="477.0" />
+            <Button fx:id="prin_aceptar_GastoProducto" layoutX="477.0" layoutY="252.0" mnemonicParsing="false" onAction="#prin_aceptarGasto" text="Aceptar " />
+            <Button fx:id="prin_cancelar_GastoProducto" layoutX="475.0" layoutY="327.0" mnemonicParsing="false" onAction="#prin_cancelarGastos" text="Cancelar" />
+            <Text fill="#024ca1" layoutX="149.0" layoutY="55.0" stroke="#7788df" strokeType="OUTSIDE" strokeWidth="0.0" text="GASTO DE PRODUCTO" underline="true">
+               <font>
+                  <Font name="Segoe Script Bold" size="24.0" />
+               </font>
+            </Text>
+            <Text fill="#0536bc" layoutX="99.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" textAlignment="JUSTIFY">
+               <font>
+                  <Font name="Tw Cen MT Condensed Extra Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#0536bc" layoutX="76.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NOMBRE" textAlignment="JUSTIFY">
+               <font>
+                  <Font name="Tw Cen MT Condensed Extra Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#0536bc" layoutX="78.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UNIDAD" textAlignment="JUSTIFY">
+               <font>
+                  <Font name="Tw Cen MT Condensed Extra Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#0536bc" layoutX="81.0" layoutY="428.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRECIO" textAlignment="JUSTIFY">
+               <font>
+                  <Font name="Tw Cen MT Condensed Extra Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#0536bc" layoutX="40.0" layoutY="501.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CANTIDAD MINIMA" textAlignment="JUSTIFY">
+               <font>
+                  <Font name="Tw Cen MT Condensed Extra Bold" size="18.0" />
+               </font>
+            </Text>
+            <Text fill="#0536bc" layoutX="71.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CANTIDAD" textAlignment="JUSTIFY">
+               <font>
+                  <Font name="Tw Cen MT Condensed Extra Bold" size="18.0" />
+               </font>
+            </Text>
          </children>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </AnchorPane>
-      <Button fx:id="prin_editarProducto_boton" layoutX="481.0" layoutY="923.0" mnemonicParsing="false" onAction="#prin_editarProducto" text="Editar Producto" />
+      <Button fx:id="prin_editarProducto_boton" layoutX="503.0" layoutY="923.0" mnemonicParsing="false" onAction="#prin_editarProducto" text="Editar Producto" />
       <Text layoutX="662.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STOCKAPP" wrappingWidth="257.28125" />
+      <Text fill="#0536bc" layoutX="50.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BUSCAR PRODUCTO" textAlignment="JUSTIFY">
+         <font>
+            <Font name="Tw Cen MT Condensed Extra Bold" size="18.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

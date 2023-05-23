@@ -33,6 +33,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -198,6 +199,8 @@ public class FXML_PrincipalController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.setTitle("StockApp");
+        Image icon = new Image(getClass().getResourceAsStream("/Utiles/favicon.png"));
+        stage.getIcons().add(icon);
         stage.showAndWait();
 
         cargarTabla();
@@ -291,6 +294,8 @@ public class FXML_PrincipalController implements Initializable {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(scene);
                 stage.setTitle("StockApp");
+                Image icon = new Image(getClass().getResourceAsStream("/Utiles/favicon.png"));
+                stage.getIcons().add(icon);
                 stage.showAndWait();
 
                 cargarTabla();
@@ -303,7 +308,7 @@ public class FXML_PrincipalController implements Initializable {
                 alert.showAndWait();
             }
         }
-                principal_buscar.setText("");
+        principal_buscar.setText("");
         MetodosVarios m = new MetodosVarios();
         m.cancelar(prin_id_GastoProducto, prin_nombre_GastoProducto, prin_cantidad_GastoProducto, prin_unidad_GastoProducto, prin_precio_GastoProducto, prin_CantMinima_GastoProducto);
 
@@ -396,7 +401,6 @@ public class FXML_PrincipalController implements Initializable {
         m.cancelar(prin_id_GastoProducto, prin_nombre_GastoProducto, prin_cantidad_GastoProducto, prin_unidad_GastoProducto, prin_precio_GastoProducto, prin_CantMinima_GastoProducto);
     }
 
-    
     @FXML
     private void BuscaPorNombre(KeyEvent event) throws SQLException {
         ObservableList<Productos> prod = FXCollections.observableArrayList();
@@ -412,7 +416,7 @@ public class FXML_PrincipalController implements Initializable {
         lista_Producto.removeAll(lista_Producto);
 
         while (rs.next()) {
-            
+
             int id = rs.getInt("pro_id");
             String nombre = rs.getString("pro_nombre");
             double cantidad = rs.getDouble("pro_cantidad");

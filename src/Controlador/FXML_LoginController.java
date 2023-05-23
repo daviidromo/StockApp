@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -81,6 +82,8 @@ public class FXML_LoginController implements Initializable {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(scene);
                 stage.setTitle("StockApp");
+                Image icon = new Image(getClass().getResourceAsStream("/Utiles/favicon.png"));
+        stage.getIcons().add(icon);
                 stage.showAndWait();
                 }
             else if(usuario.equals(log_usuario.getText())){
