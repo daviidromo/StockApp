@@ -81,6 +81,11 @@
 
 #AnchorPane .text{
     -fx-fill: #000080;
+-fx-font-size: 16px; /* Tamaño de fuente */
+    -fx-font-weight: bold; /* Grosor de fuente */
+    -fx-font-style: italic; /* Estilo de fuente */
+    -fx-text-alignment: center; /* Alineación del texto */
+    -fx-text-overrun: ellipsis; /* Truncar el texto si es demasiado largo */
 }
 
 #AnchorPane  .button .text{
@@ -88,9 +93,13 @@
 }
 
 #AnchorPane .text-field {
+    -fx-font-size: 16px; /* Tamaño de fuente */
+    -fx-font-weight: bold; /* Grosor de fuente */
+    -fx-font-style: italic; /* Estilo de fuente */
+    -fx-text-alignment: center; /* Alineación del texto */
+    -fx-text-overrun: ellipsis; /* Truncar el texto si es demasiado largo */
     -fx-background-color: #BFD8F9;
     -fx-text-fill: #000080;
-    -fx-font-size: 16px; /* Aumentar el tamaño de fuente de los campos de texto */
 }
 
 #AnchorPane .combo-box {
