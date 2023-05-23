@@ -362,7 +362,12 @@ public class FXML_PrincipalController implements Initializable {
             alert.setContentText("Debes poner una cantidad");
             alert.showAndWait();
         } else {
-            double cantidadInicial = a.getCantidad();
+            String cantidad = prin_cantidad_GastoProducto.getText();
+
+            int idComprobar = 0;
+            try {
+                idComprobar = Integer.parseInt(cantidad);
+                double cantidadInicial = a.getCantidad();
             double cantidadRestar = Double.parseDouble(cantidadRestarStr);
             double cantidadFinal = 0;
             if (cantidadRestar > cantidadInicial) {
@@ -387,11 +392,20 @@ public class FXML_PrincipalController implements Initializable {
 
                 }
                 m.cancelar(prin_id_GastoProducto, prin_nombre_GastoProducto, prin_cantidad_GastoProducto, prin_unidad_GastoProducto, prin_precio_GastoProducto, prin_CantMinima_GastoProducto);
+            }
+            } catch (NumberFormatException e) {
+                Alert alertt = new Alert(Alert.AlertType.ERROR);
+                alertt.setHeaderText(null);
+                alertt.setTitle("Error");
+                alertt.setContentText("La cantidad no es un numero");
+                alertt.showAndWait();
 
+            }
+            
             }
         }
 
-    }
+    
 
     @FXML
     private void prin_cancelarGastos(ActionEvent event
