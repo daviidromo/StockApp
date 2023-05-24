@@ -93,14 +93,7 @@ public class FXML_EditarProductoController implements Initializable {
 
             cantidadI = Double.parseDouble(cantidad);
             cantidadM = Double.parseDouble(cantidadMin);
-        } catch (NumberFormatException e) {
-            Alert alertt = new Alert(Alert.AlertType.ERROR);
-            alertt.setHeaderText(null);
-            alertt.setTitle("Error");
-            alertt.setContentText("Uno de los campos (cantidad, precio y/o cantidad minima no es un numero");
-            alertt.showAndWait();
-
-        }
+        
         if (cantidadM >= cantidadI) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
@@ -127,6 +120,14 @@ public class FXML_EditarProductoController implements Initializable {
             MetodosVarios.cerrarVentanas(event);
 
             return filas > 0;
+        }
+        } catch (NumberFormatException e) {
+            Alert alertt = new Alert(Alert.AlertType.ERROR);
+            alertt.setHeaderText(null);
+            alertt.setTitle("Error");
+            alertt.setContentText("Uno de los campos (cantidad, precio y/o cantidad minima no es un numero");
+            alertt.showAndWait();
+
         }
         return false;
     }

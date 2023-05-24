@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -175,7 +176,9 @@ public class FXML_PrincipalController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(FXML_PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        //ORDENAR LA TABLA POR ID
+        lista_Producto.sort(Comparator.comparingInt(Productos::getId));
         tabla_productos.setItems(lista_Producto);
 
     }

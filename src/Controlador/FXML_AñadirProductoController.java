@@ -60,12 +60,80 @@ public class FXML_AñadirProductoController implements Initializable {
 
     @FXML
     private boolean aceptar_añadirProducto(ActionEvent event) throws SQLException {
-        
 
         String id = id_añadirProducto.getText();
         int idComprobar = 0;
         try {
             idComprobar = Integer.parseInt(id);
+
+            boolean idExists = false;
+
+            // Recorre la lista de productos existentes
+            for (Productos product : FXML_PrincipalController.getProductList()) {
+                if (product.getId() == idComprobar) {
+                    idExists = true;
+                    break;
+                }
+            }
+
+            // Verifica si el ID ya existe
+            if (idExists) {
+                Alert alertt = new Alert(Alert.AlertType.ERROR);
+                alertt.setHeaderText(null);
+                alertt.setTitle("Error");
+                alertt.setContentText("El id existe");
+                alertt.showAndWait();
+            } else {
+                String nombre = nombre_añadirProducto.getText();
+                String cantidad = cantidad_añadirProducto.getText();
+                String unidad = unidad_añadirProducto.getValue();
+                String precio = precio_añadirProducto.getText();
+                String cantMin = cantidadMinima_añadirProducto.getText();
+
+                double cantidadI = 0;
+                double cantidadM = 0;
+                double cantidadComprobar = 0;
+                double precioComprobar = 0;
+                double cantidadMinComprobar = 0;
+                try {
+                    cantidadComprobar = Double.parseDouble(cantidad);
+                    precioComprobar = Double.parseDouble(precio);
+                    cantidadMinComprobar = Double.parseDouble(cantMin);
+
+                    cantidadI = Double.parseDouble(cantidad);
+                    cantidadM = Double.parseDouble(cantMin);
+                } catch (NumberFormatException e1) {
+                    Alert alertt = new Alert(Alert.AlertType.ERROR);
+                    alertt.setHeaderText(null);
+                    alertt.setTitle("Error");
+                    alertt.setContentText("Uno de los campos (cantidad, precio y/o cantidad minima no es un numero");
+                    alertt.showAndWait();
+
+                }
+                if (cantidadM >= cantidadI) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Error");
+                    alert.setContentText("Debes poner menos cantidad minima de la cantidad que hay");
+                    alert.showAndWait();
+                } else {
+
+                    Conexion conexion = new Conexion();
+
+                    // Formo el SQL
+                    String SQL = "";
+                    SQL += "INSERT INTO productos VALUES('";
+                    SQL += id + "', '" + nombre + "', '";
+                    SQL += cantidad + "', '" + unidad + "', '" + precio + "','";
+                    SQL += cantMin + "' )";
+                    // Recupero las filas
+                    int filas = conexion.ejecutarInstruccion(SQL);
+
+                    conexion.cerrarConexion();
+                    MetodosVarios.cerrarVentanas(event);
+                    return filas > 0;
+                }
+            }
         } catch (NumberFormatException e) {
             Alert alertt = new Alert(Alert.AlertType.ERROR);
             alertt.setHeaderText(null);
@@ -74,76 +142,7 @@ public class FXML_AñadirProductoController implements Initializable {
             alertt.showAndWait();
 
         }
-        boolean idExists = false;
 
-        // Recorre la lista de productos existentes
-        for (Productos product : FXML_PrincipalController.getProductList()) {
-            if (product.getId() == idComprobar) {
-                idExists = true;
-                break;
-            }
-        }
-
-        // Verifica si el ID ya existe
-        if (idExists) {
-            Alert alertt = new Alert(Alert.AlertType.ERROR);
-            alertt.setHeaderText(null);
-            alertt.setTitle("Error");
-            alertt.setContentText("El id existe");
-            alertt.showAndWait();
-        } else {
-            String nombre = nombre_añadirProducto.getText();
-            String cantidad = cantidad_añadirProducto.getText();
-            String unidad = unidad_añadirProducto.getValue();
-            String precio = precio_añadirProducto.getText();
-            String cantMin = cantidadMinima_añadirProducto.getText();
-            
-        double cantidadI = 0;
-        double cantidadM = 0;
-            double cantidadComprobar = 0;
-            double precioComprobar = 0;
-            double cantidadMinComprobar = 0;
-            try {
-                cantidadComprobar = Double.parseDouble(cantidad);
-
-                precioComprobar = Double.parseDouble(precio);
-
-                cantidadMinComprobar = Double.parseDouble(cantMin);
-                
-         cantidadI = Double.parseDouble(cantidad);
-         cantidadM = Double.parseDouble(cantMin);
-            } catch (NumberFormatException e1) {
-                Alert alertt = new Alert(Alert.AlertType.ERROR);
-                alertt.setHeaderText(null);
-                alertt.setTitle("Error");
-                alertt.setContentText("Uno de los campos (cantidad, precio y/o cantidad minima no es un numero");
-                alertt.showAndWait();
-
-            }
-            if (cantidadM >= cantidadI) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText(null);
-                alert.setTitle("Error");
-                alert.setContentText("Debes poner menos cantidad minima de la cantidad que hay");
-                alert.showAndWait();
-            } else {
-
-                Conexion conexion = new Conexion();
-
-                // Formo el SQL
-                String SQL = "";
-                SQL += "INSERT INTO productos VALUES('";
-                SQL += id + "', '" + nombre + "', '";
-                SQL += cantidad + "', '" + unidad + "', '" + precio + "','";
-                SQL += cantMin + "' )";
-                // Recupero las filas
-                int filas = conexion.ejecutarInstruccion(SQL);
-
-                conexion.cerrarConexion();
-                MetodosVarios.cerrarVentanas(event);
-                return filas > 0;
-            }
-        }
         return false;
 
     }
