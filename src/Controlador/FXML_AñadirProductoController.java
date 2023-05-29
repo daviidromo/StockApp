@@ -96,7 +96,7 @@ public class FXML_AñadirProductoController implements Initializable {
                 double precioComprobar = 0;
                 double cantidadMinComprobar = 0;
                 try {
-                    cantidadComprobar = Double.parseDouble(cantidad);
+                    cantidadComprobar = Double.parseDouble(cantidad);//
                     precioComprobar = Double.parseDouble(precio);
                     cantidadMinComprobar = Double.parseDouble(cantMin);
 
