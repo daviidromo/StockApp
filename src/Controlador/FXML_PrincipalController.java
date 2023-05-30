@@ -62,9 +62,7 @@ public class FXML_PrincipalController implements Initializable {
     private TableColumn<?, ?> tabla_precio;
     @FXML
     private TableColumn<Productos, Double> tabla_cantidadMinima;
-
     Conexion conexion;
-
     static ObservableList<Productos> lista_Producto = FXCollections.observableArrayList();
     @FXML
     private TableView<Productos> tabla_productos;
@@ -108,13 +106,6 @@ public class FXML_PrincipalController implements Initializable {
 
     public void prepararTabla() {
 
-        /*      tabla_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tabla_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        tabla_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
-        tabla_unidad.setCellValueFactory(new PropertyValueFactory<>("unidad"));
-        tabla_precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        tabla_cantidadMinima.setCellValueFactory(new PropertyValueFactory<>("cantidadMinima"));
-         */
         tabla_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         tabla_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tabla_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));

@@ -58,8 +58,8 @@ public class FXML_LoginController implements Initializable {
     @FXML
     private void log_boton_aceptar(ActionEvent event) {
        
-        String usuario = "";
-        String contraseña = "";
+        String usuario = "admin";
+        String contraseña = "admin";
         
         
         try {
