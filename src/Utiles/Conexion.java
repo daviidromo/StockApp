@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Utiles;
 
 import java.sql.Connection;
@@ -10,19 +5,21 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 /**
- *
- * @author sergi
+ * Clase que representa una conexión a la base de datos.
+ * Esta clase se encarga de establecer y cerrar la conexión, así como ejecutar consultas e instrucciones SQL.
+ * 
+ * @author David y Sergio
  */
 public class Conexion {
 
     private Connection conexion;
 
     /**
-     * Metodo para conectarse a la base de datos
-     *
-     * @throws SQLException -
+     * Constructor de la clase Conexion.
+     * Establece la conexión a la base de datos utilizando los parámetros proporcionados.
+     * 
+     * @throws SQLException Si ocurre un error al establecer la conexión.
      */
     public Conexion() throws SQLException {
         String host = "localhost";
@@ -42,11 +39,11 @@ public class Conexion {
     }
 
     /**
-     * Metodo para ejecutar la consulta
-     *
-     * @param SQL -
-     * @return  -
-     * @throws SQLException -
+     * Ejecuta una consulta SQL y devuelve el conjunto de resultados.
+     * 
+     * @param SQL La consulta SQL a ejecutar.
+     * @return El conjunto de resultados de la consulta.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta.
      */
     public ResultSet ejecutarConsulta(String SQL) throws SQLException {
         Statement statement = this.conexion.createStatement();
@@ -54,11 +51,11 @@ public class Conexion {
     }
 
     /**
-     * Ejecuta una instrucción
-     *
-     * @param SQL -
-     * @return -
-     * @throws SQLException -
+     * Ejecuta una instrucción SQL y devuelve el número de filas afectadas.
+     * 
+     * @param SQL La instrucción SQL a ejecutar.
+     * @return El número de filas afectadas.
+     * @throws SQLException Si ocurre un error al ejecutar la instrucción.
      */
     public int ejecutarInstruccion(String SQL) throws SQLException {
         Statement statement = this.conexion.createStatement();
@@ -66,10 +63,10 @@ public class Conexion {
     }
 
     /**
-     * Devuelve el ultimo ID insertado
-     *
-     * @return -
-     * @throws SQLException -
+     * Devuelve el último ID insertado en la base de datos.
+     * 
+     * @return El último ID insertado.
+     * @throws SQLException Si ocurre un error al obtener el último ID.
      */
     public int ultimoID() throws SQLException {
         ResultSet rs = this.ejecutarConsulta("SELECT last_insert_id() as last_id;");
@@ -78,9 +75,9 @@ public class Conexion {
     }
 
     /**
-     * Cierra la conexión
-     *
-     * @throws SQLException -
+     * Cierra la conexión a la base de datos.
+     * 
+     * @throws SQLException Si ocurre un error al cerrar la conexión.
      */
     public void cerrarConexion() throws SQLException {
         this.conexion.close();

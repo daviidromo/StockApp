@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Utiles;
 
 import java.io.IOException;
@@ -17,19 +12,35 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.JTextField;
-
 /**
- *
- * @author sergi
+ * Clase que contiene varios métodos útiles.
+ * Estos métodos realizan tareas como cerrar ventanas, cancelar campos de texto y actualizar datos en la base de datos.
+ * 
+ * @author David y Sergio
  */
 public class MetodosVarios {
 
+    /**
+     * Cierra la ventana actual en respuesta a un evento.
+     * 
+     * @param event El evento que desencadena el cierre de la ventana.
+     */
     public static void cerrarVentanas(ActionEvent event) {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Cancela la edición de los campos de texto, restableciéndolos a sus valores iniciales.
+     * 
+     * @param id El campo de texto para el ID.
+     * @param nombre El campo de texto para el nombre.
+     * @param cantidad El campo de texto para la cantidad.
+     * @param unidad El ComboBox para la unidad.
+     * @param precio El campo de texto para el precio.
+     * @param cantMin El campo de texto para la cantidad mínima.
+     */
     public void cancelar(TextField id, TextField nombre, TextField cantidad, ComboBox unidad, TextField precio, TextField cantMin) {
         id.setText("");
         nombre.setText("");
@@ -39,6 +50,14 @@ public class MetodosVarios {
         cantMin.setText("");
     }
 
+    /**
+     * Actualiza la cantidad de un producto en la base de datos.
+     * 
+     * @param cantidad La nueva cantidad del producto.
+     * @param id El ID del producto a actualizar.
+     * @return true si la actualización se realizó correctamente, false en caso contrario.
+     * @throws SQLException Si ocurre un error al ejecutar la actualización.
+     */
     public boolean actualizar(double cantidad, int id) throws SQLException {
         Conexion conexion = new Conexion();
 
@@ -50,9 +69,6 @@ public class MetodosVarios {
 
         // Recupero las filas
         int filas = conexion.ejecutarInstruccion(SQL);
-        /*libros1(event);
-            libros2(event);
-            libros3(event);*/
         conexion.cerrarConexion();
 
         return filas > 0;

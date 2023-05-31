@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controlador;
 
 import Modelo.Productos;
@@ -21,11 +16,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-
 /**
  * FXML Controller class
  *
- * @author byrom
+ * Controlador de la vista FXML_AñadirProducto.fxml.
+ * Se encarga de gestionar la funcionalidad de la interfaz gráfica de usuario
+ * relacionada con la adición de productos en la aplicación.
+ * @author david y sergio 
  */
 public class FXML_AñadirProductoController implements Initializable {
 
@@ -49,7 +46,8 @@ public class FXML_AñadirProductoController implements Initializable {
     private Button cancelar_añadirProducto;
 
     /**
-     * Initializes the controller class.
+     * Inicializa el controlador después de que se haya cargado el archivo FXML.
+     * Configura el combo box "unidad_añadirProducto" añadiendo opciones predefinidas.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -59,10 +57,12 @@ public class FXML_AñadirProductoController implements Initializable {
     }
 
     /**
-     * Hola
-     * @param event
-     * @return
-     * @throws SQLException 
+     * Maneja el evento del botón "aceptar_añadirProducto".
+     * Realiza la validación de los campos ingresados y guarda los valores en la base de datos.
+     *
+     * @param event el evento de acción generado por el botón
+     * @return true si se ha guardado el producto correctamente, false en caso contrario
+     * @throws SQLException si ocurre un error en la ejecución de la consulta SQL
      */
     @FXML
     private boolean aceptar_añadirProducto(ActionEvent event) throws SQLException {
@@ -102,7 +102,7 @@ public class FXML_AñadirProductoController implements Initializable {
                 double precioComprobar = 0;
                 double cantidadMinComprobar = 0;
                 try {
-                    cantidadComprobar = Double.parseDouble(cantidad);//
+                    cantidadComprobar = Double.parseDouble(cantidad);
                     precioComprobar = Double.parseDouble(precio);
                     cantidadMinComprobar = Double.parseDouble(cantMin);
 
@@ -150,9 +150,14 @@ public class FXML_AñadirProductoController implements Initializable {
         }
 
         return false;
-
     }
 
+    /**
+     * Maneja el evento del botón "restaurar_añadirProducto".
+     * Restaura los campos de texto a sus valores predeterminados.
+     *
+     * @param event el evento de acción generado por el botón
+     */
     @FXML
     private void restaurar_añadirProducto(ActionEvent event) {
         // Abrimos una ventana de confirmacion
@@ -165,10 +170,8 @@ public class FXML_AñadirProductoController implements Initializable {
 
         // Si hemos pulsado en aceptar
         if (action.get() == ButtonType.OK) {
-
             MetodosVarios m = new MetodosVarios();
             m.cancelar(id_añadirProducto, nombre_añadirProducto, cantidad_añadirProducto, unidad_añadirProducto, precio_añadirProducto, cantidadMinima_añadirProducto);
-
         } else {
             Alert alertt = new Alert(Alert.AlertType.ERROR);
             alertt.setHeaderText(null);
@@ -176,9 +179,14 @@ public class FXML_AñadirProductoController implements Initializable {
             alertt.setContentText("No se ha restaurado el producto");
             alertt.showAndWait();
         }
-
     }
 
+    /**
+     * Maneja el evento del botón "cancelar_añadirProducto".
+     * Cierra la ventana actual.
+     *
+     * @param event el evento de acción generado por el botón
+     */
     @FXML
     private void cancelar_añadirProducto(ActionEvent event) {
         MetodosVarios.cerrarVentanas(event);

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controlador;
 
 import Modelo.Productos;
@@ -40,11 +35,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 /**
- * FXML Controller class
- *
- * @author sergi
+ * FXML Controller class.
+ * Controlador de la vista FXML_Principal.fxml
+ * @author david y sergio
  */
 public class FXML_PrincipalController implements Initializable {
 
@@ -91,21 +85,31 @@ public class FXML_PrincipalController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
+     * @param url The location used to resolve relative paths for the root
+     * object, or null if the location is not known.
+     * @param rb The resources used to localize the root object, or null if the
+     * root object was not localized.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         prepararTabla();
         cargarTabla();
-
     }
 
+    /**
+     * Retorna la lista de productos.
+     *
+     * @return La lista de productos.
+     */
     public static ObservableList<Productos> getProductList() {
         return lista_Producto;
     }
 
+    /**
+     * Prepara la tabla de productos configurando las celdas y las columnas.
+     */
     public void prepararTabla() {
-
         tabla_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         tabla_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tabla_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
@@ -130,7 +134,6 @@ public class FXML_PrincipalController implements Initializable {
                     // Comprobar si el producto tiene cantidad igual a la cantidad mínima
                     if (producto.getCantidad() <= producto.getCantidadMinima()) {
                         setStyle("-fx-background-color: red; -fx-text-fill: white;");
-
                     } else {
                         setStyle(""); // Estilo por defecto
                     }
@@ -140,7 +143,11 @@ public class FXML_PrincipalController implements Initializable {
 
         tabla_cantidadMinima.setCellValueFactory(new PropertyValueFactory<>("cantidadMinima"));
     }
-
+    
+    /**
+     * Carga la tabla de productos desde la base de datos.
+     * Ordena la tabla por ID y la muestra en la interfaz.
+     */
     public void cargarTabla() {
 
         try {
@@ -174,6 +181,13 @@ public class FXML_PrincipalController implements Initializable {
 
     }
 
+    /**
+     * Evento del botón "Añadir Producto".
+     * Abre la ventana de añadir productos y recarga la tabla después de cerrarla.
+     *
+     * @param event El evento del botón.
+     * @throws IOException Si ocurre un error de entrada/salida al cargar la vista.
+     */
     @FXML
     private void prin_añadirProducto(ActionEvent event) throws IOException {
 
@@ -201,6 +215,13 @@ public class FXML_PrincipalController implements Initializable {
 
     }
 
+     /**
+     * Evento del botón "Borrar Producto".
+     * Borra el producto seleccionado de la tabla y actualiza la tabla.
+     *
+     * @param event El evento del botón.
+     * @throws SQLException Si ocurre un error de SQL al borrar el producto.
+     */
     @FXML
     private void prin_borrarProducto(ActionEvent event) throws SQLException {
         // Obtengo el producto seleccionado
@@ -254,7 +275,14 @@ public class FXML_PrincipalController implements Initializable {
         m.cancelar(prin_id_GastoProducto, prin_nombre_GastoProducto, prin_cantidad_GastoProducto, prin_unidad_GastoProducto, prin_precio_GastoProducto, prin_CantMinima_GastoProducto);
 
     }
-
+    
+    /**
+     * Evento del botón "Editar Producto".
+     * Abre la ventana de editar producto con el producto seleccionado y recarga la tabla después de cerrarla.
+     *
+     * @param event El evento del botón.
+     * @throws IOException Si ocurre un error de entrada/salida al cargar la vista.
+     */
     @FXML
     private void prin_editarProducto(ActionEvent event) throws IOException {
         // Obtengo el producto seleccionado
@@ -308,6 +336,12 @@ public class FXML_PrincipalController implements Initializable {
 
     }
 
+    /**
+     * Evento al seleccionar un producto en la tabla.
+     * Muestra los datos del producto seleccionado en los campos correspondientes.
+     *
+     * @param event El evento del ratón.
+     */
     @FXML
     private void prin_gastos(MouseEvent event) {
         // Obtengo el producto seleccionado
@@ -337,6 +371,13 @@ public class FXML_PrincipalController implements Initializable {
 
     }
 
+     /**
+     * Evento del botón "Aceptar Gasto".
+     * Resta la cantidad especificada del producto seleccionado, actualiza la base de datos y recarga la tabla.
+     *
+     * @param event El evento del botón.
+     * @throws SQLException Si ocurre un error de SQL al actualizar la cantidad del producto.
+     */
     @FXML
     private void prin_aceptarGasto(ActionEvent event) throws SQLException {
         // Obtengo el producto seleccionado
@@ -401,6 +442,12 @@ public class FXML_PrincipalController implements Initializable {
 
     
 
+    /**
+     * Evento del botón "Cancelar Gastos".
+     * Recarga la tabla y cancela la edición de gastos.
+     *
+     * @param event El evento del botón.
+     */
     @FXML
     private void prin_cancelarGastos(ActionEvent event
     ) {
@@ -409,6 +456,13 @@ public class FXML_PrincipalController implements Initializable {
         m.cancelar(prin_id_GastoProducto, prin_nombre_GastoProducto, prin_cantidad_GastoProducto, prin_unidad_GastoProducto, prin_precio_GastoProducto, prin_CantMinima_GastoProducto);
     }
 
+    /**
+     * Evento al escribir en el campo de búsqueda por nombre.
+     * Filtra los productos por nombre y actualiza la tabla.
+     *
+     * @param event El evento del teclado.
+     * @throws SQLException Si ocurre un error de SQL al filtrar los productos.
+     */
     @FXML
     private void BuscaPorNombre(KeyEvent event) throws SQLException {
         ObservableList<Productos> prod = FXCollections.observableArrayList();

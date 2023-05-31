@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controlador;
 
 
@@ -25,8 +20,9 @@ import javafx.stage.Stage;
 
 /**
  * FXML Controller class
- *
- * @author sergi
+ * Controlador de la vista FXML_Login.fxml
+ * Se encarga de gestionar el inicio de sesión en la aplicación de inventario.
+ * @author david y sergio 
  */
 public class FXML_LoginController implements Initializable {
 
@@ -40,75 +36,76 @@ public class FXML_LoginController implements Initializable {
     private Button log_boton_aceptar;
 
     /**
-     * Initializes the controller class.
+     * Inicializa el controlador.
+     * @param url la URL de inicialización
+     * @param rb los recursos de inicialización
      */
-    
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
 
+    /**
+     * Maneja el evento del botón "log_boton_cancelar".
+     * Cierra la ventana actual.
+     * @param event el evento de acción generado por el botón
+     */
     @FXML
     private void log_boton_cancelar(ActionEvent event) {
-          MetodosVarios.cerrarVentanas(event);
-
+        MetodosVarios.cerrarVentanas(event);
     }
 
+    /**
+     * Maneja el evento del botón "log_boton_aceptar".
+     * Realiza la validación del usuario y la contraseña introducidos y muestra la ventana principal si son correctos.
+     * @param event el evento de acción generado por el botón
+     */
     @FXML
     private void log_boton_aceptar(ActionEvent event) {
-       
         String usuario = "admin";
         String contraseña = "admin";
-        
-        
+
         try {
-            if (usuario.equals(log_usuario.getText()) && contraseña.equals(log_contraseña.getText())){
-                
-                // carga la vista
+            if (usuario.equals(log_usuario.getText()) && contraseña.equals(log_contraseña.getText())) {
+                // Carga la vista FXML_Principal.fxml
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/Vistas/FXML_Principal.fxml"));
                 
                 MetodosVarios.cerrarVentanas(event);
 
-                // Cargo el padre
+                // Carga el padre
                 Parent root = loader.load();
 
-                // Creo la scene
+                // Crea la escena
                 Scene scene = new Scene(root);
 
-                // Creo la stage
+                // Crea la etapa
                 Stage stage = new Stage();
 
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(scene);
                 stage.setTitle("StockApp");
                 Image icon = new Image(getClass().getResourceAsStream("/Utiles/favicon.png"));
-        stage.getIcons().add(icon);
+                stage.getIcons().add(icon);
                 stage.showAndWait();
-                }
-            else if(usuario.equals(log_usuario.getText())){
+            } else if (usuario.equals(log_usuario.getText())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
                 alert.setTitle("Error");
-                alert.setContentText("Contraseña incorrecto");
+                alert.setContentText("Contraseña incorrecta");
                 alert.showAndWait();
-            }
-            else if(contraseña.equals(log_contraseña.getText())){
+            } else if (contraseña.equals(log_contraseña.getText())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
                 alert.setTitle("Error");
                 alert.setContentText("Usuario incorrecto");
                 alert.showAndWait();
-            }
-            else{
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
                 alert.setTitle("Error");
                 alert.setContentText("Usuario y contraseña incorrectos");
                 alert.showAndWait();
-
             }
-            
         } catch (IOException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
@@ -116,6 +113,5 @@ public class FXML_LoginController implements Initializable {
             alert.setContentText(ex.getMessage());
             alert.showAndWait();
         }
-    }
-   
+    } 
 }

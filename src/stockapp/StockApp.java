@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package stockapp;
 
 import javafx.application.Application;
@@ -11,13 +6,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
 /**
- *
- * @author sergi
+ * Clase principal de la aplicación StockApp.
+ * Esta clase inicia la aplicación y muestra la ventana de inicio de sesión.
+ * Extiende la clase Application de JavaFX.
+ * 
+ * @author David y Sergio
  */
 public class StockApp extends Application {
     
+    /**
+     * Método de inicio de la aplicación.
+     * Carga y muestra la ventana de inicio de sesión.
+     * 
+     * @param stage El escenario principal de la aplicación.
+     * @throws Exception Si ocurre un error al cargar la ventana.
+     */
     @Override
     public void start(Stage stage) throws Exception  {
          Parent root = FXMLLoader.load(getClass().getResource("/Vistas/FXML_Login.fxml"));
@@ -31,10 +35,11 @@ public class StockApp extends Application {
     }
 
     /**
-     * @param args the command line arguments
+     * Método principal que inicia la aplicación.
+     * 
+     * @param args Los argumentos de línea de comandos.
      */
     public static void main(String[] args) {
-        
         launch(args);
     }
     
