@@ -58,6 +58,12 @@ public class FXML_AñadirProductoController implements Initializable {
         unidad_añadirProducto.getItems().add("Unidades");
     }
 
+    /**
+     * Hola
+     * @param event
+     * @return
+     * @throws SQLException 
+     */
     @FXML
     private boolean aceptar_añadirProducto(ActionEvent event) throws SQLException {
 
