@@ -399,9 +399,9 @@ public class FXML_PrincipalController implements Initializable {
         } else {
             String cantidad = prin_cantidad_GastoProducto.getText();
 
-            int idComprobar = 0;
+            double idComprobar = 0;
             try {
-                idComprobar = Integer.parseInt(cantidad);
+                idComprobar = Double.parseDouble(cantidad);
                 double cantidadInicial = a.getCantidad();
             double cantidadRestar = Double.parseDouble(cantidadRestarStr);
             double cantidadFinal = 0;
