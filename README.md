@@ -55,7 +55,7 @@ El sistema resuelve la problemática de la gestión manual de inventarios, permi
 **Pasos:**
 1. Clonar el repositorio:
    ```bash
-   git clone [https://github.com/daviidromo/StockApp.git](https://github.com/daviidromo/StockApp.git)
+   git clone https://github.com/daviidromo/StockApp.git
 2. Importar la base de datos:
    Ejecuta el script db_script.sql en tu gestor MySQL.
 3. Configurar conexión:
