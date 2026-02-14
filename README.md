@@ -64,7 +64,12 @@ El sistema resuelve la problemática de la gestión manual de inventarios, permi
    Lanza la aplicación desde tu IDE favorito (IntelliJ / NetBeans).
 
 👤 Autor
-David Romo Escobar
+David Romo 
 <a href="https://www.linkedin.com/in/david-romo-escobar/">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
+</a>
+👤 Autor
+Sergio Rodríguez
+<a href="https://www.linkedin.com/in/sergio-rodr%C3%ADguez-g%C3%B3mez/">
     <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
 </a>
