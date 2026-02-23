@@ -73,4 +73,5 @@ Sergio Rodríguez
 <a href="https://www.linkedin.com/in/sergio-rodr%C3%ADguez-g%C3%B3mez/">
     <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
 </a>
-
+⭐ ¡Apoya el proyecto!
+Si este sistema de gestión de stock te ha parecido útil o interesante, por favor considera darle una Estrella al repositorio o hacer un Fork para contribuir con tus propias mejoras. ¡Tu apoyo ayuda a que el proyecto siga creciendo!
